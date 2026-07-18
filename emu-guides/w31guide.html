@@ -139,10 +139,15 @@ This tool works by piping the output of a screen reader that is configured to us
 
 <h3 id="animportantnoteforsecurebootusers">An important note for secure boot users</h3>
 
-<p>If secure boot is enabled on your Windows 10 or 11 machine, and your system has not been upgraded from a prior version of Windows, you will need to enable driver test signing before installing com0com. You can do so by running <a href="/files/TestDriver.exe">this tool</a> as an administrator. Simply right click on the downloaded executable and select run as administrator.</p>
-
-<aside>Note: By enabling driver test signing, you are allowing potentially dangerous drivers on to your system. We know that com0com is completely harmless, but that doesn't mean all drivers and programs are completely harmless. Always be careful of the files you download to your computer.</aside>
-
+<p>Because of modern Windows's stupid driver signing policy, if secure boot is enabled on your Windows 10 or 11 machine, and your system has not been upgraded from a prior version of Windows, the virtual serial port driver will refuse to work without you either disabling secure boot in your BIOS, which is infeasible if you're blind, or disabling driver signature inforcement at the OS level on every single reboot.</p>
+<p>To get around this, we need to use a bit of cyber subterfuge. We need to lie to the OS by telling it we upgraded from a prior version of Windows, which we can do via the registry, specifically a DWORD 32-bit value called 'UpgradedSystem' in HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\CI\Policy.</p>
+<p>To make life a bit easier and save you from potentially frying your system, a registry file is available.</p>
+<ol>
+<li><a href="/files/SystemUpgradeLie.reg">Download the registry file.</a></li>
+<li>Launch the file and say yes to the UAC prompt.</li>
+<li>Answer yes to the confirmation prompt and hit OK on the message box that appears.</li>
+</ol>
+<p>This method is confirmed working as of the latest update of Windows 11 25H2 from July 2026.</p>
 <hr />
 
 <h2 id="section6configuringdosboxx">Section 6: configuring DOSBox-X</h2>
